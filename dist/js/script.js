@@ -54,3 +54,28 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
   } else {
     darkToggle.checked = false;
   }
+
+// Animasi
+document.addEventListener('DOMContentLoaded', () => {
+    // Buat instance Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('hidden');
+                entry.target.classList.add('opacity-100');
+                observer.unobserve(entry.target); // Hentikan pemantauan setelah animasi
+            }
+        });
+    }, {
+        threshold: 0.1 // Treshold untuk 10% elemen terlihat
+    });
+
+    // Pilih semua elemen yang ingin dipantau
+    const elements = document.querySelectorAll('#fadeIn, .slideRight, #slideLeft');
+
+    // Mulai memantau elemen-elemen tersebut
+    elements.forEach(element => {
+        observer.observe(element);
+    });
+});
+
